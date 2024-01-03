@@ -24,9 +24,11 @@ function wait3(t) {
 
 function calculateTime(t1, t2, t3) {
     let date = new Date();
-    Promise.all([wait1(t1),wait2(t2),wait3(t3)]).then(() => {
-        return new Date().getTime() - date.getTime()
-    })
+    return new Promise((resolve) => {
+        Promise.all([wait1(t1),wait2(t2),wait3(t3)])
+        .then(() => {
+        resolve(new Date().getTime() - date.getTime())
+    })})
 }
 
 module.exports = calculateTime;
