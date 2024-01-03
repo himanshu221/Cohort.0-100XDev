@@ -38,7 +38,7 @@
 // console.log(sum)
 
 
-let str1 = "Himanshu"
-let str2 = "My name is Himashu"
+// let str1 = "Himanshu"
+// let str2 = "My name is Himashu"
 
-console.log(str2.includes(str1))
+// console.log(str2.includes(str1))
