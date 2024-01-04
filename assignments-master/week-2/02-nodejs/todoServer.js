@@ -53,6 +53,7 @@
     }
     add(todoItem){
       let id = Math.floor(Math.random()*1000000);
+      todoItem["id"] = id.toString();
       this.todoMap.set(id.toString(),todoItem)
       return id;
     }
@@ -74,6 +75,7 @@
 
     update(id, todoItem){
       if(this.todoMap.has(id)){
+        todoItem["id"] = id.toString();
         this.todoMap.set(id, todoItem);
         return true;
       }
@@ -148,6 +150,5 @@
       }
   })
 
-  app.listen(3000)
   
   module.exports = app;
