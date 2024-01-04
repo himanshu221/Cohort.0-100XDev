@@ -45,5 +45,109 @@
   const app = express();
   
   app.use(bodyParser.json());
+
+  class Todo{
+    todoMap;
+    constructor(){
+      this.todoMap = new Map();
+    }
+    add(todoItem){
+      let id = Math.floor(Math.random()*1000000);
+      this.todoMap.set(id.toString(),todoItem)
+      return id;
+    }
+
+    get(id){
+      return this.todoMap.get(id);
+    }
+
+    getAll(){
+      let todoList = [];
+      let iter = this.todoMap.values();
+      let element = iter.next();
+      while(!element.done){
+          todoList.push(element.value);
+          element = iter.next();
+      }
+      return todoList;
+    }
+
+    update(id, todoItem){
+      if(this.todoMap.has(id)){
+        this.todoMap.set(id, todoItem);
+        return true;
+      }
+      else return false;
+    } 
+
+    delete(id){
+      if(this.todoMap.has(id)){
+        this.todoMap.delete(id);
+        return true;
+      }else{
+        return false;
+      }
+
+    }
+
+  }
+
+  let todo = new Todo();
+
+  app.post("/todos",(req, resp) => {
+    let todoItem = req.body;
+    let id = todo.add(todoItem);
+    resp.statusCode = "201";
+    console.log("Added a new item with id : " + id)
+    resp.send({
+      "id": id.toString()
+    })
+  })
+
+  app.get("/todos", (req, resp) => {
+    resp.send(JSON.stringify(todo.getAll()))
+  })
+
+  app.get("/todos/:id", (req, resp) => {
+    let id = req.params.id;
+    let itemList = todo.get(id);
+
+    if(typeof itemList === 'undefined'){
+      resp.statusCode = 404;
+      resp.send("Todo Not Found!")
+    }else{
+      resp.statusCode = 200;
+      resp.send(JSON.stringify(itemList));
+    }
+  })
+
+  app.put("/todos/:id", (req, resp) => {
+    let id = req.params.id;
+    let todoItem = req.body;
+    let isupdated = todo.update(id, todoItem);
+
+    if(isupdated){
+      resp.statusCode = 200;
+      resp.send("Updated the todo")
+    }else{
+      resp.statusCode = 404
+      resp.send("Todo not found!")
+    }
+  })
+
+  app.delete("/todos/:id", (req, resp) => {
+      let id = req.params.id;
+      let isDeleted = todo.delete(id);
+
+      if(isDeleted){
+        resp.statusCode = 200;
+        resp.send("Todo is deleted")
+      }else{
+        resp.statusCode = 404;
+        resp.send("Todo not found!")
+      }
+  })
+
+  app.listen(3000)
   
   module.exports = app;
