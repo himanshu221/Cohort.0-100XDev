@@ -49,4 +49,4 @@ console.log(JSON.stringify(list))
 
 let ar = [1,2,3,4];
 
-console.log(ar.)
+console.log(Boolean("sx"))
