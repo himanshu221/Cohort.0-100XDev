@@ -46,3 +46,7 @@ let a = {
 
 console.log(JSON.stringify(a))
 console.log(JSON.stringify(list))
+
+let ar = [1,2,3,4];
+
+console.log(ar.)
