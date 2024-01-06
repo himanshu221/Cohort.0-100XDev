@@ -17,7 +17,6 @@ const fs = require('fs');
 const path = require('path');
 const app = express();
 
-
 app.get("/files", (req, resp) => {
   fs.readdir("files", (err, files) => {
     if(err){
@@ -38,7 +37,7 @@ app.get("/file/:filename", (req, resp) => {
   })
 })
 
-app.use((req, resp, next) => {
+app.use((req, resp) => {
   resp.status(404).send("Route not found");
 })
 

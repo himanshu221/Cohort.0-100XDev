@@ -16,6 +16,23 @@ setInterval(() => {
     numberOfRequestsForUser = {};
 }, 1000)
 
+app.use((req, resp, next) => {
+  let userId = req.headers["user-id"];
+
+  if(!numberOfRequestsForUser.hasOwnProperty(userId)){
+    numberOfRequestsForUser[userId] = 1;
+    next();
+  }else if(numberOfRequestsForUser.hasOwnProperty(userId) && numberOfRequestsForUser[userId] <= 5){
+    numberOfRequestsForUser[userId] = numberOfRequestsForUser[userId] + 1;
+    next();
+  }else{
+    resp.status(404).json({
+      msg: "RateLimit exceeded!"
+    })
+  }
+
+})
+
 app.get('/user', function(req, res) {
   res.status(200).json({ name: 'john' });
 });
