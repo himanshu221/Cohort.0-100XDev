@@ -50,3 +50,9 @@ console.log(JSON.stringify(list))
 let ar = [1,2,3,4];
 
 console.log(Boolean("sx"))
+
+
+console.log(Date.now())
+setTimeout(() => {
+    console.log(Date.now())
+},1000)
