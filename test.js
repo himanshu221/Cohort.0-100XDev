@@ -56,3 +56,11 @@ console.log(Date.now())
 setTimeout(() => {
     console.log(Date.now())
 },1000)
+
+console.log(Boolean({
+    _id: "drr",
+    name: 'Chikki',
+    username: 'snigdha@gmail.com',
+    password: '1234',
+    __v: 0
+  }))
