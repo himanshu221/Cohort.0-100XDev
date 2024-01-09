@@ -64,3 +64,35 @@ console.log(Boolean({
     password: '1234',
     __v: 0
   }))
+
+
+  let trans = [
+    {
+      id: 1,
+      timestamp: 1656076800000,
+      price: 10,
+      category: 'Food',
+      itemName: 'Pizza',
+    },
+    {
+      id: 2,
+      timestamp: 1656076800003,
+      price: 20,
+      category: 'Food',
+      itemName: 'Burger',
+    },
+    {
+      id: 3,
+      timestamp: 1656076800002,
+      price: 10,
+      category: 'Clothing',
+      itemName: 'Shirt',
+    }
+  ]
+
+let output = trans.reduce((acc, ele) => {
+    acc.push(ele.id)
+    return acc
+},[])
+
+console.log(output)

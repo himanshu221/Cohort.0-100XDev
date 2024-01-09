@@ -2,21 +2,81 @@
 <html>
 
 <head>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+
+<body>
+  <div class="top-container">
+    <div class="input-container">
+        <input class="title-input" type="text" placeholder="todo title">
+        <input class="description-input" type="text" placeholder="todo description">
+        <button class="add-button" onclick="addTodo()">Add Todo</button>
+    </div>
+  </div>
+  <div class="bottom-container">
+  </div>
   <script>
+    const todoContainer = document.querySelector(".bottom-container")
     let globalId = 1;
     let todoState = [];
     let oldTodoState = [];
 
-    function addTodoToDom() {
+    function addTodoToDom(todoList) {
+      for(let todo of todoList){
+        addTodoItem(todo.title, todo.description, todo.id);
+      }
+  
+    }
+    function markDone(id){
+      const ele = document.getElementById(id);
+      ele.children[2].innerHTML = "Done";
+      ele.children[2].style.backgroundColor = "#32a85a";
+    } 
+    function addTodoItem(title, description, id){
+      const div = document.createElement("div");
+      div.setAttribute("style","padding: 40px;box-shadow: 0px 0px 5px rgba(0,0,0,0.30);border-radius: 5px;text-align: center");
+
+
+      const tt = document.createElement("p");
+      tt.setAttribute("style","font-size: 15px")
+      const titleText = document.createTextNode(title)
+      tt.appendChild(titleText)
+
+      const desc = document.createElement("p");
+      desc.setAttribute("style","font-size: 15px")
+      const descText = document.createTextNode(description)
+      desc.appendChild(descText)
       
+      const btn = document.createElement("button");
+      btn.className="add-button"
+      btn.setAttribute("onclick",`markDone(${id})`)
+      const buttonText = document.createTextNode('Mark as Done')
+      btn.appendChild(buttonText)
+
+      div.appendChild(tt);
+      div.appendChild(desc);
+      div.appendChild(btn);
+      div.id=id;
+
+      todoContainer.appendChild(div);
     }
 
-    function removeTodoFromDom(todo) {
-      
+    function removeTodoFromDom(todoList) {
+        for(let todo of todoList){
+          let ele = document.getElementById(todo.id);
+          ele.remove();
+        }
     }
 
-    function updateTodoInDom(oldTodo, newTodo) {
-        
+    function updateTodoInDom(todoList) {
+      for(let todo of todoList){
+          let ele = document.getElementById(todo.id);
+          ele.children[0].innerHTML = ele.title;
+          ele.children[1].innerHTML = ele.description;
+        }
     }
 
     function updateState(newTodos) {
@@ -28,15 +88,62 @@
       const added = [];
       const deleted = [];
       const updated = [];
+
+      const newIds = newTodos.reduce((idList, todo) => {
+        idList.push(todo.id)
+        return idList;
+      },[])
+
+      const oldIds = oldTodoState.reduce((idList, todo) => {
+        idList.push(todo.id)
+        return idList;
+      },[])
+
+      console.log("newIds  : " + newIds)
+      console.log("oldIDs  : " + oldIds)
+
+      newTodos.forEach(todo => {
+        if(!oldIds.includes(todo.id)){
+          added.push(todo)
+        }
+      })
+      
+      oldTodoState.forEach(todo => {
+        if(!newIds.includes(todo.id)){
+          deleted.push(todo)
+        }
+      })
+
+      newTodos.forEach(newTodo => {
+        oldTodoState.forEach(oldTodo => {
+          if(newTodo.id === oldTodo.id && newTodo.title != oldTodo.title){
+            updated.push(newTodo);
+          }
+        })
+      })
+      
       // calculate these 3 arrays
       // call addTodo, removeTodo, updateTodo functions on each of the
       // elements
-      oldTodoState = newTodos;
+
+      console.log("added: " + added)
+      console.log("updated : " + updated)
+      console.log("deleted: " + deleted)
+
+      addTodoToDom(added);
+      removeTodoFromDom(deleted);
+      updateTodoInDom(updated)
+
+      console.log(oldTodoState)
+      console.log(newTodos)
+
+      oldTodoState = structuredClone(newTodos);
+      console.log(oldTodoState)
     }
 
     function addTodo() {
-      const title = document.getElementById("title").value;
-      const description = document.getElementById("description").value;
+      const title = document.querySelector(".title-input").value;
+      const description = document.querySelector(".description-input").value;
       todoState.push({
         title: title,
         description: description,
@@ -45,17 +152,6 @@
       updateState(todoState);
     }
   </script>
-</head>
-
-<body>
-  <input type="text" id="title" placeholder="Todo title"></input> <br /><br />
-  <input type="text" id="description" placeholder="Todo description"></input> <br /><br />
-  <button onclick="addTodo()">Add todo</button>
-  <br /> <br />
-
-  <div id="todos">
-
-  </div>
 </body>
 
 </html>
