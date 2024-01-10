@@ -1,0 +1,35 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State and Components</title>
+</head>
+<body>
+    <div class="container"></div>
+<script>
+    let state = {
+        count: 0
+    }
+
+    function updateState(){
+        state.count++;
+        buttonComponentReRender();
+    }
+
+    // this is taken care by react
+    // this takes the global state and re-render it
+    function buttonComponentReRender() {
+        document.querySelector(".container").innerHTML = ""
+        const button = buttonComponent(state.count);
+        document.querySelector(".container").appendChild(button)
+    }
+    function buttonComponent(count){
+        const button = document.createElement("button");
+        button.innerHTML = `Counter ${count}`;
+        button.setAttribute("onclick", 'updateState()')
+        return button;
+    }
+    buttonComponentReRender();
+</script>    
+</body>
+</html>
