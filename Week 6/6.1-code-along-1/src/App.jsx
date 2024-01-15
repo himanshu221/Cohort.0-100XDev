@@ -6,7 +6,7 @@ import './App.css'
 function App() {
   let [title, updateTitle] = useState("Himanshu");
   return (
-    <>
+    <div>
       <TitleChange updateTitle={updateTitle} />
       <Header title={title} />
       <Header title={"Bhushan1"} />
@@ -14,7 +14,7 @@ function App() {
       <Header title={"Bhushan3"} />
       <Header title={"Bhushan4"} />
       <Header title={"Bhushan5"} />
-    </>
+    </div>
   )
     
 }
