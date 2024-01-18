@@ -12,13 +12,13 @@ export function Assignment1() {
     // Your code starts here
     const handleIncrement = useCallback(() => {
         console.log("inside increment")
-        setCount(count + 1)
-    },[count])
+        setCount(count => count + 1)
+    },[])
 
     const handleDecrement = useCallback(() => {
         console.log("inside decrement")
-        setCount(count - 1)
-    },[count])
+        setCount(count => count - 1)
+    },[])
     // Your code ends here
 
     return (

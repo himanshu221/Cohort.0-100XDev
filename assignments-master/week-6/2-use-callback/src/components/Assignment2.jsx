@@ -6,14 +6,14 @@ import { useEffect } from 'react';
 // useCallback. We're also not passing it down to another component as a prop which is another reason for you to not see it's benefits immedietely.
 
 export function Assignment2() {
-    const [inputText, setInputText] = useState('');
+    const [inputText, setInputText] = useState('abcd');
     console.log("app render")
     // Your code starts here
     const showAlert = useCallback(() => {
         console.log(inputText)
         alert(inputText)
-    },[])
-    
+    },[inputText])
+
     // Your code ends here
 
     return (
