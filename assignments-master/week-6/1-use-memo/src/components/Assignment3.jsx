@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 // You have been given a list of items you shopped from the grocery store
 // You need to calculate the total amount of money you spent
 
@@ -10,9 +10,22 @@ const Assignment3 = () => {
         { name: 'Tomato', value: 30 },
         // Add more items as needed
     ]);
+    console.log("re-render")
 
+    useEffect(() => {
+        setTimeout(() => {
+            setItems([...items,{
+                name: "ps5", value: 500
+            }])
+        },5000)
+    },[])
     // Your code starts here
-    const totalValue = 0;
+    const totalValue = useMemo(() => {
+        console.log("in-memo")
+        return items.reduce((totalPrice, item) => {
+            return totalPrice + item.value;
+        },0)
+    },[items])
     // Your code ends here
     return (
         <div>
