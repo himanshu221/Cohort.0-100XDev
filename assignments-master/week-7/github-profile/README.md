@@ -9,7 +9,7 @@ Solution for week 7 assignment question
 
 ## Final Project
 
-<img width="1440" alt="Screenshot 2024-01-31 at 10 03 59 PM" src="https://github.com/himanshu221/Cohort.0-100XDev/assets/44173885/9d443ded-fe1d-4701-a933-4dd5ba5a7500">
+https://github.com/himanshu221/Cohort.0-100XDev/assets/44173885/9bd04ba9-8f11-4f03-8b98-9e040e40500d
 
-<img width="1440" alt="Screenshot 2024-01-31 at 10 07 20 PM" src="https://github.com/himanshu221/Cohort.0-100XDev/assets/44173885/77f56a8d-61d3-4d79-a3ef-eb4ff0166d47">
+
 
