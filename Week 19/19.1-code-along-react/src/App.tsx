@@ -10,8 +10,10 @@ function App() {
         console.log("Connection to socker established")
         setSocket(newSocket)
       }
-      newSocket.onmessage = (message) => {
+      newSocket.onmessage = (message: MessageEvent<string>) => {
+        console.log(messages)
         setMessages([...messages, message.data])
+        console.log(messages)
       }
       return () => newSocket.close()
   },[])
